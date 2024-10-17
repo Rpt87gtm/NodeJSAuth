@@ -1,0 +1,19 @@
+{
+  "name": "node-js-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rpt87gtm/NodeJSAuth.git"
+  },
+  "author": "Rpt87gtm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rpt87gtm/NodeJSAuth/issues"
+  },
+  "homepage": "https://github.com/Rpt87gtm/NodeJSAuth#readme"
+}
