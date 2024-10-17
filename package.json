@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/Rpt87gtm/NodeJSAuth/issues"
   },
-  "homepage": "https://github.com/Rpt87gtm/NodeJSAuth#readme"
+  "homepage": "https://github.com/Rpt87gtm/NodeJSAuth#readme",
+  "dependencies": {
+    "vite": "^5.4.9",
+    "vue": "^3.5.12"
+  }
 }
