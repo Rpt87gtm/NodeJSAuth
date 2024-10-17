@@ -1,7 +1,7 @@
 <template>
     <div class="login-page">
       <h1>Вход</h1>
-      <form @submit.prevent="login">
+      <form @submit.prevent="handleLogin">
         <input type="email" v-model="email" placeholder="Email" required />
         <input type="password" v-model="password" placeholder="Пароль" required />
         <button type="submit">Войти</button>
@@ -22,7 +22,8 @@
     },
     methods: {
       ...mapActions('auth', ['login']),
-      async login() {
+      async handleLogin() {
+        console.log(mapActions('auth', ['login']));
         const user = {
           email: this.email,
           password: this.password,

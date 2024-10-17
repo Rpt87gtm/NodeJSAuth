@@ -1,7 +1,7 @@
 <template>
     <div class="register-page">
       <h1>Регистрация</h1>
-      <form @submit.prevent="register">
+      <form @submit.prevent="handleRegister">
         <input type="email" v-model="email" placeholder="Email" required />
         <input type="password" v-model="password" placeholder="Пароль" required />
         <button type="submit">Зарегистрироваться</button>
@@ -22,7 +22,7 @@
     },
     methods: {
       ...mapActions('auth', ['register']),
-      async register() {
+      async handleRegister() {
         const user = {
           email: this.email,
           password: this.password,
