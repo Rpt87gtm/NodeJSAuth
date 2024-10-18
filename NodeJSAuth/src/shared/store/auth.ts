@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import axios from 'axios';
+import axiosInstance from '../../app/router/axios';
 
 
 interface AuthState {
@@ -40,12 +40,12 @@ const actions = {
         commit('logout');
         localStorage.removeItem('token');
         Cookies.remove('token');
-        delete axios.defaults.headers.common['Authorization'];
+        delete axiosInstance.defaults.headers.common['Authorization'];
     },
     async restoreToken({ commit }: { commit: any }) {
         const token = localStorage.getItem('token');
         if (token) {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             commit('auth_success', token);
         }
     },
@@ -53,7 +53,7 @@ const actions = {
         const token = state.token;
         if (token) {
             try {
-                const response = await axios.post('http://localhost:3000/protected', null, {
+                const response = await axiosInstance.post('http://localhost:3000/protected', null, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -83,11 +83,11 @@ const actions = {
 async function handleAuthRequest(commit, url, user) {
     commit('auth_request');
     try {
-      const response = await axios.post(url, user);
+      const response = await axiosInstance.post(url, user);
       const token = response.data.token;
       Cookies.set('token', token, { httpOnly:true, secure: true });
       localStorage.setItem('token', token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       commit('auth_success', token);
     } catch (error) {
       commit('auth_error');

@@ -9,9 +9,8 @@
   </template>
   
   <script>
-  import { defineComponent } from 'vue';
   import { mapActions } from 'vuex';
-  
+
   export default {
     name: 'HomePage',
     data() {
@@ -28,6 +27,7 @@
       } catch (error) {
         console.error('Failed to fetch protected data:', error);
         this.protectedData = 'Failed to fetch protected data';
+        this.$router.push('/login');
       }
     }
   }
