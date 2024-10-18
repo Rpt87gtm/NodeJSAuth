@@ -30,36 +30,68 @@ const mutations = {
 }
 
 const actions = {
-    async login({ commit }, user) {
+    async login({ commit }: { commit: any }, user: any) {
         await handleAuthRequest(commit, 'http://localhost:3000/login', user);
     },
-        async register({ commit }, user) {
+    async register({ commit }: { commit: any }, user: any) {
         await handleAuthRequest(commit, 'http://localhost:3000/register', user);
     },
-    async logout({commit}){
+    async logout({commit}: { commit: any }){
         commit('logout');
+        localStorage.removeItem('token');
         Cookies.remove('token');
         delete axios.defaults.headers.common['Authorization'];
     },
     async restoreToken({ commit }: { commit: any }) {
-        const token = Cookies.get('token');
+        const token = localStorage.getItem('token');
         if (token) {
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
             commit('auth_success', token);
         }
+    },
+    async protectedRoute({ commit }: { commit: any }) {
+        const token = state.token;
+        if (token) {
+            try {
+                const response = await axios.post('http://localhost:3000/protected', null, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                return response.data; 
+            } catch (error) {
+                commit('auth_error');
+                localStorage.removeItem('token');
+                Cookies.remove('token');
+                throw error;
+            }
+        } else {
+            throw new Error('Token not found');
+        }
+    },
+    async refreshToken({ commit }: { commit: any }) {
+        const token = localStorage.getItem('token');
+        if (token) {
+            await handleAuthRequest(commit,'http://localhost:3000/refresh-token', null);
+        } else {
+            throw new Error('Token not found');
+        }
     }
 }
+
 
 async function handleAuthRequest(commit, url, user) {
     commit('auth_request');
     try {
       const response = await axios.post(url, user);
       const token = response.data.token;
-      Cookies.set('token', token, {  secure: true });
+      Cookies.set('token', token, { httpOnly:true, secure: true });
+      localStorage.setItem('token', token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       commit('auth_success', token);
     } catch (error) {
       commit('auth_error');
+      localStorage.removeItem('token');
       Cookies.remove('token');
       throw error;
     }
