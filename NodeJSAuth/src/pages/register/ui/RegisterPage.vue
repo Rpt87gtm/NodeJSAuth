@@ -1,11 +1,14 @@
 <template>
     <div class="register-page">
       <h1>Регистрация</h1>
-      <form @submit.prevent="handleRegister">
-        <input type="email" v-model="email" placeholder="Email" required />
-        <input type="password" v-model="password" placeholder="Пароль" required />
-        <button type="submit">Зарегистрироваться</button>
-      </form>
+      <div>
+        <form @submit.prevent="handleRegister">
+          <input type="email" v-model="email" placeholder="Email" required />
+          <input type="password" v-model="password" placeholder="Пароль" required />
+          <button type="submit">Зарегистрироваться</button>
+        </form>
+      </div>
+      <button @click="openLoginPage">Уже есть аккаунт</button>
     </div>
   </template>
   
@@ -30,6 +33,9 @@
         await this.register(user);
         this.$router.push('/');
       },
+      async openLoginPage(){
+        this.$router.push('/login');
+      }
     },
   };
   </script>
