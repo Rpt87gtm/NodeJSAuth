@@ -1,14 +1,13 @@
-import Cookies from 'js-cookie';
 import axiosInstance from '../../app/router/axios';
 
 
 interface AuthState {
-    token: string;
+    token: string | null;
     status: string;
 }
 
 const state: AuthState = {
-    token: Cookies.get('token') || '',
+    token: localStorage.getItem('token') || null,
     status: '',
 };
 
@@ -25,7 +24,7 @@ const mutations = {
     },
     logout(state){
         state.status = '';
-        state.token = '';
+        state.token = null;
     }
 }
 
@@ -34,12 +33,11 @@ const actions = {
         await handleAuthRequest(commit, 'http://localhost:3000/login', user);
     },
     async register({ commit }: { commit: any }, user: any) {
-        await handleAuthRequest(commit, 'http://localhost:3000/register', user);
+        await axiosInstance.post('http://localhost:3000/register', user);
     },
     async logout({commit}: { commit: any }){
         commit('logout');
         localStorage.removeItem('token');
-        Cookies.remove('token');
         delete axiosInstance.defaults.headers.common['Authorization'];
     },
     async restoreToken({ commit }: { commit: any }) {
@@ -62,7 +60,6 @@ const actions = {
             } catch (error) {
                 commit('auth_error');
                 localStorage.removeItem('token');
-                Cookies.remove('token');
                 throw error;
             }
         } else {
@@ -85,14 +82,12 @@ async function handleAuthRequest(commit, url, user) {
     try {
       const response = await axiosInstance.post(url, user);
       const token = response.data.token;
-      Cookies.set('token', token, { httpOnly:true, secure: true });
       localStorage.setItem('token', token);
       axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       commit('auth_success', token);
     } catch (error) {
       commit('auth_error');
       localStorage.removeItem('token');
-      Cookies.remove('token');
       throw error;
     }
   }

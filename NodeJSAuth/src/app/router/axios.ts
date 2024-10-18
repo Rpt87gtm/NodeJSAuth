@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import store from '../../shared/store';
 
 
 const axiosInstance = axios.create({
@@ -10,7 +10,7 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      localStorage.removeItem('token');
+        store.dispatch('auth/logout');
     }
     return Promise.reject(error);
   }

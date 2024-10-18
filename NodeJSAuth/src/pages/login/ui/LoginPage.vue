@@ -1,16 +1,20 @@
 <template>
-    <div class="login-page">
-      <h1>Вход</h1>
-      <div>
-        <form @submit.prevent="handleLogin">
-          <input type="email" v-model="email" placeholder="Email" required />
-          <input type="password" v-model="password" placeholder="Пароль" required />
-          <button type="submit">Войти</button>
-        </form>
-      </div>
-      <button @click="openRegisterPage">Зарегистрироваться</button>
+  <div class="login-page d-flex flex-column align-items-center justify-content-center vh-100">
+    <h1 class="mb-4">Вход</h1>
+    <div class="w-50">
+      <form @submit.prevent="handleLogin" class="mb-3">
+        <div class="mb-3">
+          <input type="email" v-model="email" placeholder="Email" required class="form-control" />
+        </div>
+        <div class="mb-3">
+          <input type="password" v-model="password" placeholder="Пароль" required class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Войти</button>
+      </form>
+      <button @click="openRegisterPage" class="btn btn-secondary w-100">Зарегистрироваться</button>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   import { mapActions } from 'vuex';

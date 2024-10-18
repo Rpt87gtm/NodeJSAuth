@@ -1,12 +1,12 @@
 <template>
-    <div class="home-page">
-      <h1>Добро пожаловать на главную страницу!</h1>
-      <p>Это главная страница вашего приложения.</p>
+  <div class="home-page d-flex flex-column align-items-center justify-content-center vh-100">
+    <h1 class="mb-4">Добро пожаловать на главную страницу!</h1>
+    <p class="mb-4">Это главная страница вашего приложения.</p>
 
-      <button @click="fetchProtectedData">Fetch Protected Data</button>
-      <p>{{ protectedData }}</p>
-    </div>
-  </template>
+    <button @click="fetchProtectedData" class="btn btn-primary mb-4">Fetch Protected Data</button>
+    <p>{{ protectedData }}</p>
+  </div>
+</template>
   
   <script>
   import { mapActions } from 'vuex';
