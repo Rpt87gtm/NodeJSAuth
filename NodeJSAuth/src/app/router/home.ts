@@ -5,6 +5,7 @@ const homeRoutes = [
         path:'/',
         name:'home',
         component:HomePage,
+        meta: { requiresAuth: true },
     }
 ];
 

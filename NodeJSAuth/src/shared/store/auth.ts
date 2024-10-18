@@ -1,7 +1,13 @@
 import Cookies from 'js-cookie';
 import axios from 'axios';
 
-const state = {
+
+interface AuthState {
+    token: string;
+    status: string;
+}
+
+const state: AuthState = {
     token: Cookies.get('token') || '',
     status: '',
 };
@@ -23,17 +29,24 @@ const mutations = {
     }
 }
 
-const  actions = {
+const actions = {
     async login({ commit }, user) {
-        await handleAuthRequest(commit, '/api/login', user);
+        await handleAuthRequest(commit, 'http://localhost:3000/login', user);
     },
         async register({ commit }, user) {
-        await handleAuthRequest(commit, '/api/register', user);
+        await handleAuthRequest(commit, 'http://localhost:3000/register', user);
     },
     async logout({commit}){
         commit('logout');
         Cookies.remove('token');
         delete axios.defaults.headers.common['Authorization'];
+    },
+    async restoreToken({ commit }: { commit: any }) {
+        const token = Cookies.get('token');
+        if (token) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            commit('auth_success', token);
+        }
     }
 }
 
@@ -42,7 +55,7 @@ async function handleAuthRequest(commit, url, user) {
     try {
       const response = await axios.post(url, user);
       const token = response.data.token;
-      Cookies.set('token', token, { httpOnly: true, secure: true });
+      Cookies.set('token', token, {  secure: true });
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       commit('auth_success', token);
     } catch (error) {

@@ -24,7 +24,7 @@
       ...mapActions('auth', ['register']),
       async handleRegister() {
         const user = {
-          email: this.email,
+          username: this.email,
           password: this.password,
         };
         await this.register(user);

@@ -6,4 +6,6 @@ import store from '../shared/store';
 const app = createApp(App);
 app.use(router);
 app.use(store);
-app.mount('#app');
+store.dispatch('initialize').then(() => {
+    app.mount('#app');
+  });

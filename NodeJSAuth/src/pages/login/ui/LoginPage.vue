@@ -25,7 +25,7 @@
       async handleLogin() {
         console.log(mapActions('auth', ['login']));
         const user = {
-          email: this.email,
+          username: this.email,
           password: this.password,
         };
         await this.login(user);
