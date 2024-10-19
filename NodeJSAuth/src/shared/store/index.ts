@@ -14,6 +14,6 @@ export default createStore({
   actions: {
     async initialize({ dispatch }) {
       await dispatch('auth/restoreToken');
-    }
+    },
   },
 });

@@ -1,7 +1,6 @@
 import LoginPage from '../../pages/login/index';
 import RegisterPage from '../../pages/register/index';
 
-
 const authRoutes = [
   {
     path: '/login',
