@@ -30,7 +30,6 @@
     methods: {
       ...mapActions('auth', ['login']),
       async handleLogin() {
-        console.log(mapActions('auth', ['login']));
         const user = {
           username: this.email,
           password: this.password,

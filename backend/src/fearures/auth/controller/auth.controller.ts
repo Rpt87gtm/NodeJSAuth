@@ -1,7 +1,7 @@
 import { Controller, Post, Body, HttpException, UseGuards, HttpStatus, Req } from "@nestjs/common";
-import { AuthService } from "./auth.service";
-import { User } from "./user.entity";
-import { JwtAuthGuard } from "./jwt-auth.guard";
+import { AuthService } from "../auth.service";
+import { User } from "../../../entities/user/user.entity";
+import { JwtAuthGuard } from "../jwt-auth.guard";
 import { Request } from 'express';
 
 interface AuthenticatedRequest extends Request{

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AppController } from '../fearures/controllers/app.controller';
+import { AppService } from '../fearures/app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from 'fearures/auth/auth.module';
 
 
 @Module({
@@ -14,7 +14,7 @@ import { AuthModule } from './auth/auth.module';
       username: 'rpt87gtm',
       password: 'qwerty',
       database: 'testpostgres',
-      entities:[__dirname + '/**/*.entity{.ts,.js}'],
+      autoLoadEntities: true,
       synchronize: true,
     }),
     AuthModule,
