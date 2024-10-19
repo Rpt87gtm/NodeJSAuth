@@ -4,7 +4,6 @@ import { AppService } from '../fearures/app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'fearures/auth/auth.module';
 
-
 @Module({
   imports: [
     TypeOrmModule.forRoot({
