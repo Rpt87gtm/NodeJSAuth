@@ -6,9 +6,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const corsOptions: CorsOptions = {
-    origin: 'http://localhost:5173', // Укажите домен вашего фронтенда
+    origin: 'http://localhost:5173', 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // Если вам нужно передавать куки или авторизационные заголовки
+    credentials: true, 
   };
 
   app.enableCors(corsOptions);
