@@ -18,14 +18,11 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
     const isLoggedIn = store.getters['auth/isLoggedIn'];
-    console.log("isLoggedIn: "+isLoggedIn);
-    console.log("authStatus: "+ store.getters['auth/authStatus']);
 
     if (to.meta.requiresAuth && !isLoggedIn) {
         next('/login');
     } else {
         const token = localStorage.getItem('token');
-        console.log("token: "+token);
         if (token) {
             const decodedToken: any = jwtDecode(token);
             const currentTime = Date.now() / 1000;
