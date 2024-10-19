@@ -13,7 +13,6 @@ npm install
 npm run dev
 
 cd ..
-cd NodeJSAuth
 cd backend
 npm install
 
